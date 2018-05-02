@@ -1,0 +1,35 @@
+{
+  "name": "biguintle",
+  "version": "0.0.0",
+  "description": "Encode / decode unsigned BigInt as little endian",
+  "main": "index.js",
+  "dependencies": {
+    "nanoassert": "^1.1.0"
+  },
+  "devDependencies": {
+    "secure-random-uniform": "^3.1.0",
+    "tape": "^4.9.0"
+  },
+  "scripts": {
+    "test": "node --harmony-bigint test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emilbayes/biguintle.git"
+  },
+  "keywords": [
+    "bigint",
+    "uint",
+    "uint64",
+    "abstract",
+    "encoding",
+    "encode",
+    "decode"
+  ],
+  "author": "Emil Bay <github@tixz.dk>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emilbayes/biguintle/issues"
+  },
+  "homepage": "https://github.com/emilbayes/biguintle#readme"
+}
