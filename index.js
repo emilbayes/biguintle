@@ -1,14 +1,17 @@
 var assert = require('nanoassert')
+var ZERO = 0n
+var EIGHT = 8n
+var BYTE = 0xffn
 
 function ilog256(bu) {
-  for (var ilog = 0; bu > 0n; ilog++) bu >>= 8n
+  for (var ilog = 0; bu > ZERO; ilog++) bu >>= EIGHT
 
   return ilog
 }
 
 exports.encodingLength = function encodingLength (bu) {
   assert(typeof bu === 'bigint', 'bu must be unsigned BigInt')
-  assert(bu >= 0n, 'bu must be unsigned')
+  assert(bu >= ZERO, 'bu must be unsigned')
   return ilog256(bu)
 }
 
@@ -25,8 +28,8 @@ exports.encode = function encode (bu, buf, byteOffset) {
   assert(buf.byteLength - byteOffset >= len, 'buf must be large enough to contain bu (' + len + ' bytes)')
 
   var alias = new Uint8Array(buf.buffer, byteOffset)
-  for (var i = 0; bu > 0n && i < alias.length; i++, bu >>= 8n) {
-    alias[i] = Number(bu & 0xffn)
+  for (var i = 0; bu > ZERO && i < alias.length; i++, bu >>= EIGHT) {
+    alias[i] = Number(bu & BYTE)
   }
 
   exports.encode.bytes = i
@@ -45,7 +48,7 @@ exports.decode = function decode (buf, byteOffset, byteLength) {
   var alias = new Uint8Array(buf.buffer, byteOffset, byteLength)
 
   for (var i = alias.length - 1, bu = 0n; i >= 0; i--) {
-    bu = bu << 8n | BigInt(alias[i])
+    bu = bu << EIGHT | BigInt(alias[i])
   }
 
   exports.decode.bytes = byteLength
