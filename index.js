@@ -40,7 +40,7 @@ exports.encode = function encode (bu, buf, byteOffset) {
 exports.encode.bytes = 0
 
 exports.decode = function decode (buf, byteOffset, byteLength) {
-  if (!byteOffset) byteOffset = 0
+  if (!byteOffset) byteOffset = buf.byteOffset
   if (!byteLength) byteLength = buf.byteLength
 
   assert(buf.buffer)
