@@ -10,6 +10,8 @@ test('Simple tests', function (assert) {
   assert.same(codec.decode.bytes, 7)
   assert.same(0xffffffffn, codec.decode(Buffer.alloc(4, 0xff)))
   assert.same(codec.decode.bytes, 4)
+  assert.same(0xffffffffn, codec.decode(Buffer.from('ffffffff', 'hex')))
+  assert.same(codec.decode.bytes, 4)
 
   var buf = Buffer.alloc(5)
   assert.same(buf, codec.encode(0xffffffffn, buf))
