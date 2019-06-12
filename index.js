@@ -27,7 +27,7 @@ exports.encode = function encode (bu, buf, byteOffset) {
   assert(buf.buffer, 'buf must be Buffer or TypedArray')
   assert(buf.byteLength - byteOffset >= len, 'buf must be large enough to contain bu (' + len + ' bytes)')
 
-  var alias = new Uint8Array(buf.buffer, byteOffset)
+  var alias = new Uint8Array(buf.buffer, buf.byteOffset + byteOffset, buf.byteLength)
   for (var i = 0; bu > ZERO && i < alias.length; i++, bu >>= EIGHT) {
     alias[i] = Number(bu & BYTE)
   }
@@ -40,12 +40,12 @@ exports.encode = function encode (bu, buf, byteOffset) {
 exports.encode.bytes = 0
 
 exports.decode = function decode (buf, byteOffset, byteLength) {
-  if (!byteOffset) byteOffset = buf.byteOffset
+  if (!byteOffset) byteOffset = 0
   if (!byteLength) byteLength = buf.byteLength
 
   assert(buf.buffer)
   // Defer valdidation of byteOffset and byteLength to constructor
-  var alias = new Uint8Array(buf.buffer, byteOffset, byteLength)
+  var alias = new Uint8Array(buf.buffer, buf.byteOffset + byteOffset, byteLength)
 
   for (var i = alias.length - 1, bu = 0n; i >= 0; i--) {
     bu = bu << EIGHT | BigInt(alias[i])

@@ -17,6 +17,8 @@ test('Simple tests', function (assert) {
   assert.same(buf, codec.encode(0xffffffffn, buf))
   assert.same(codec.encode.bytes, 4)
   assert.same(0x00, buf[4])
+  assert.same(buf, codec.encode(0xffffffffn, Buffer.from('0000000000', 'hex')))
+  assert.same(codec.encode.bytes, 4)
   assert.same(0xffffffffn, codec.decode(buf, null, 4))
   assert.same(codec.decode.bytes, 4)
   assert.same(0xffffffffn, codec.decode(buf))
